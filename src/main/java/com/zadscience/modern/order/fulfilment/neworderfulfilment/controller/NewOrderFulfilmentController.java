@@ -18,7 +18,7 @@ public class NewOrderFulfilmentController {
     NewOrderFulfilmentRepository newOrderFulfilmentRepository;
 
     @PostMapping(value = "/confirmdelivery")
-    public ResponseEntity confirmDelivery(@RequestBody ConfirmDeliveryRequest request) {
+    public ResponseEntity ç(@RequestBody ConfirmDeliveryRequest request) {
 
         DeliveryConfirmationResponse deliveryConfirmationResponse=null;
         boolean found = newOrderFulfilmentRepository.confirmDelivery(request);
@@ -56,7 +56,5 @@ public class NewOrderFulfilmentController {
         List customers = newOrderFulfilmentRepository.showElectableCustomers();
         return customers;
     }
-
-
 
 }

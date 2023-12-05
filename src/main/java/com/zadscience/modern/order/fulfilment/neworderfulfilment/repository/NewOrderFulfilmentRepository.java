@@ -79,8 +79,8 @@ public class NewOrderFulfilmentRepository {
 
     public BusinessEntityResponse transferOrder(BusinessEntity businessEntity)
     {
-        System.out.println("electableCustomerReference" + businessEntity.getElectableCustomerReference());
-        ExternalPeerCustomer extlPeerCustomer = new ExternalPeerCustomer();
+        //Notice I am not testing for null values. Goodluck!
+        Customer transferringCustomer = businessEntity.getTransferringCustomer();
         BusinessEntityResponse response = new BusinessEntityResponse();
         // The receiving peer customer reference
         response.setReceivingCustomerReference(businessEntity.getElectableCustomerReference());
@@ -88,13 +88,13 @@ public class NewOrderFulfilmentRepository {
         response.setTransferringCustomerReference(businessEntity.getTransferringCustomerReference());
         // and finally the reference that belong to the order
         // that has been transferred.
-        response.setTransferringOrderReference(businessEntity.getTransferringCustomer()
+        response.setTransferringOrderReference(transferringCustomer
                 .getExternalOrder().getExternalOrderReference());
         for(Customer customer: electableCustomers)
-        {//For the customer who matches the transferred order customer id
+        {//For the customer who matches the transferred order Electable Customer Id
             if(customer.getCustomerId()==Long.parseLong(businessEntity.getElectableCustomerReference()))
-            {   //add the new order to their order collection and history
-                customer.getOrders().add(extlPeerCustomer.getExternalOrder());
+            {   //add the transferred new order to their order collection and history
+                customer.getOrders().add(transferringCustomer.getExternalOrder());
                 response.setTransferred(true);
                 break;
             }
