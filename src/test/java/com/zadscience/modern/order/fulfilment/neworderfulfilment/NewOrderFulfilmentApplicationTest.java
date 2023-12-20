@@ -71,11 +71,14 @@ public class NewOrderFulfilmentApplicationTest {
     public void testOrderTransfer()
     {
         try {
-            mockMvc.perform(post("/api/v1/fulfilment/transfer/order")
+
+            ResultActions postResponse = mockMvc.perform(post("/api/v1/fulfilment/transfer/order")
                             .contentType("application/json")
                             .content(orderTransferRequest))
                     .andExpect(status().isCreated());
+            postResponse.andExpect(MockMvcResultMatchers.jsonPath("$.transferred").value("true"));
 
+            //Now let's invoke some get method
             ResultActions response = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/fulfilment/" +
                     "/show/electable/customers"));
             //After transferring an order from James (E-comms Env 1) to Thandi ( E-comms Env 2) Thandi must now have 2 orders.
