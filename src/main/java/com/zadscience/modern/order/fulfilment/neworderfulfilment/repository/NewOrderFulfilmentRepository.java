@@ -20,7 +20,7 @@ public class NewOrderFulfilmentRepository {
             electableCustomers = new ArrayList<>();
             Customer customer = new Customer();
             customer.setName("Thandi");
-            customer.setSurname("Newton");
+            customer.setSurname("Gayton");
             customer.setCustomerId(Long.parseLong("12345"));
 
             Order order = new Order();
@@ -58,10 +58,9 @@ public class NewOrderFulfilmentRepository {
             return electableCustomers;
         }
 
-    public List<Customer> subscribe(Customer customer)
+    public boolean subscribe(Customer customer)
     {
-        boolean result = electableCustomers.add(customer);
-        return electableCustomers;
+        return electableCustomers.add(customer);
     }
 
     public Customer showElectableCustomers(Long customerId)

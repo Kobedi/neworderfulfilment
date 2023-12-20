@@ -39,15 +39,19 @@ public class NewOrderFulfilmentController {
         response = newOrderFulfilmentRepository.transferOrder(businessEntity);
         if(response.isTransferred())
         {
-            return new ResponseEntity(response, HttpStatus.OK);
+            return new ResponseEntity(response, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(response, HttpStatus.PRECONDITION_FAILED);
     }
 
     @PostMapping(value = "/transfer/order/subscribe")
-    public List subscribe(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> subscribe(@RequestBody Customer customer) {
 
-        return  newOrderFulfilmentRepository.subscribe(customer);
+        if(newOrderFulfilmentRepository.subscribe(customer))
+        {
+            return new ResponseEntity<>(customer,HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
     }
 

@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 public class Customer implements Serializable {
 
+    @JsonIgnore
     private Long customerId;
     private String name;
     private String surname;
